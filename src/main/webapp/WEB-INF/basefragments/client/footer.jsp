@@ -5,14 +5,9 @@
 		<div class="company">
 			<div class="contact">
 				<div class="contact-group">
-					<h3>Công ty cổ phần Công nghệ WeWe</h3>
+					<h3>Công ty cổ phần Quản Lý Sách</h3>
 					<p>
-						<b>Địa chỉ trụ sợ: </b><span>Số 1 đường Trần Thánh Tông,
-							Phường 15, Quận Tân Bình, Thành phố Hồ Chí Minh, Việt Nam</span>
-					</p>
-					<p>
-						<b>Văn phòng đại diện: </b><span>44 đường Lê Văn Duyệt,
-							Phường 1, Quận Bình Thạnh, Thành phố Hồ Chí Minh, Việt Nam</span>
+						<b>Địa chỉ trụ sợ: </b><span>Khu phố 6, Phường Linh Trung, Quận Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam</span>
 					</p>
 				</div>
 				<div class="contact-group">
