@@ -9,7 +9,7 @@
 					<div class="bg-search"></div>
 					<div class="heading-block">
 						<h2>
-							Chào mừng bạn đến với BookIT.vn, <br> kho sách chất lượng
+							Chào mừng bạn đến với Web Quản Lý Sách, <br> kho sách chất lượng
 							hàng đầu Việt Nam
 						</h2>
 						<form action="/books" method="GET">
@@ -209,25 +209,27 @@
 			<div class="quote">
 				<div class="title-quote">Danh ngôn hay</div>
 				<ul class="list-quote">
-					<c:forEach items="${top_quotes}" var="quote">
-						<li class="item-quote"><a href="http://localhost:8080/quotes?q=${quote.content}">
-								<p>${quote.content}</p>
-								<div class="infor-quote">
-									<p class="view">
-										<i class="fa-solid fa-eye"></i> <span class="quantity-view">${quote.view}</span>
-										<i class="fa-solid fa-thumbs-up"></i> <span
-											class="quantity-like">${quote.commentQuotes.size()}</span>
-									</p>
-									<p class="category">
-										<c:forEach items="${quote.quoteCategories}" var="category"
-											varStatus="loop">
-												${category.name}<c:if
-												test="${book.categories.size() - 1 != loop.index}">, </c:if>
-										</c:forEach>
-									</p>
-								</div>
-						</a></li>
+					<c:forEach items="${top_quotes}" var="quote" varStatus="loop">
+						<c:if test="${loop.index < 5}">
+							<li class="item-quote">
+								<a href="http://localhost:8080/quotes?q=${quote.content}">
+									<p>${quote.content}</p>
+									<div class="infor-quote">
+										<p class="view">
+											<i class="fa-solid fa-eye"></i> <span class="quantity-view">${quote.view}</span>
+											<i class="fa-solid fa-thumbs-up"></i> <span class="quantity-like">${quote.commentQuotes.size()}</span>
+										</p>
+										<p class="category">
+											<c:forEach items="${quote.quoteCategories}" var="category" varStatus="innerLoop">
+												${category.name}<c:if test="${quote.quoteCategories.size() - 1 != innerLoop.index}">, </c:if>
+											</c:forEach>
+										</p>
+									</div>
+								</a>
+							</li>
+						</c:if>
 					</c:forEach>
+
 				</ul>
 			</div>
 		</div>
