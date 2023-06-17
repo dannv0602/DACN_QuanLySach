@@ -33,15 +33,12 @@
 		<div class="introduce-pdf">
 
 			<iframe
-				src="https://drive.google.com/file/d/1bUVG4xdTIFvx2HIDGvpDVSKtq6dmz9If/preview"
+				src="https://drive.google.com/file/d/1iboU_WRL68hO1ALn04lTfkHn6io6lHay/preview"
 				width="640" height="480" allow="autoplay"></iframe>
 		</div>
 		<div class="content-share">
 			<div class="content-share-icon">
-				<a href="#"><img src="./assets/images/icon1.png" alt=""></a> <a
-					href="#"><img src="./assets/images/icon2.png" alt=""></a> <a
-					href="#"><img src="./assets/images/icon3.png" alt=""></a> <a
-					href="#"><img src="./assets/images/icon4.png" alt=""></a>
+
 			</div>
 			<div class="content-share-button">
 				<button>
