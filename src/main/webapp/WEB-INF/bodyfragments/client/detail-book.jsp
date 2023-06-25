@@ -84,7 +84,7 @@
 						</button>
 					</c:if>
 					<c:if test="${bookDTO.pdfs.size() > 0}">
-					<button onclick="window.location.href = '/pdf-read/${book.slug}';">
+					<button onclick="window.location.href = '/pdf-read/${bookDTO.slug}';">
 						<span><i class="fa-solid fa-file-pdf"></i></span> <span>Đọc PDF</span>
 					</button>
 					</c:if>
