@@ -1,31 +1,28 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <section class="introduce">
 	<div class="container">
 		<div class="introduce-title">
-			<h1>Tuổi trẻ để làm gì?</h1>
+			<h1 class="product-title">${bookDTO.name}</h1>
 			<div class="introduce-title-author">
-				<p>Tác giả:</p>
-				<p>Huỳnh Chí Viên</p>
+				<p class="info-item">
+					<span class="info-label">Tác giả</span>
+					<c:forEach items="${bookDTO.authors}" var="author" varStatus="loop">
+						<a href="/books?author=${author.slug}">
+						<span class="info-item">${author.fullname}
+						</span>
+							<c:if test="${loop.index != bookDTO.authors.size() - 1}">
+								<span class="mr-3">,</span>
+							</c:if>
+						</a>
+					</c:forEach>
+				</p>
 			</div>
 
 		</div>
 		<div class="introduce-content">
 			<p>Giới thiệu sách</p>
-			<p>Tuổi trẻ - Không phải là lúc để ổn định: Tôi đã từng mơ ước
-				học xong, tìm một công việc ổn định và cuộc sống cứ thế quay. Nhưng
-				liệu đó có phải con đường để quyết định được hạnh phúc? Không, vẫn
-				là những băn khoăn, những nhộn nhịp ban ngày và lặng lẽ về đêm, chợt
-				nhận ra rằng, mình cần một thứ khác.Tuổi trẻ là để trải nghiệm chứ
-				không phải để ổn định. Một vài lần rời xa thành phố ta sống hàng
-				ngày, nơi mà nhiều khi chỉ thở cũng thấy sao mệt mỏi đến thế, đến
-				một thành phố chưa từng đến, đi bộ trên những nẻo đường chưa từng
-				đi, gặp gỡ những con người chưa bao giờ hình dung ra trong trí tưởng
-				tượng. Tự chọn cho mình những chuyến đi như thế là chọn cho mình
-				những trang sách khác màu, tô điểm thêm cho cuộc đời chính mình.
-				Nhìn thấy nụ cười ngây thơ của những đứa nhỏ, nhìn thấy giọt mồ hôi
-				những lúc thổi cơm của các bà các chị, bỗng cảm thấy cuộc sống nhẹ
-				nhàng và đơn thuần đến lạ, nụ cười tự nhiên đến từ lúc nào.</p>
+			<p class="detail-description">${bookDTO.description }</p>
 		</div>
 
 
@@ -34,6 +31,7 @@
 
 			<iframe
 				src="https://drive.google.com/file/d/1iboU_WRL68hO1ALn04lTfkHn6io6lHay/preview"
+<%--					src=${pdfSelected.url}--%>
 				width="640" height="480" allow="autoplay"></iframe>
 		</div>
 		<div class="content-share">

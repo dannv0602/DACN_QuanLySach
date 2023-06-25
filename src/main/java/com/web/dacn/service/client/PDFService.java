@@ -9,7 +9,7 @@ import java.util.List;
 public interface PDFService {
     public BookDTO findBookBySlug(String slug);
 
-    public List<AudioDTO> findAudiosByBook(Long bookId);
+    public List<AudioDTO> findPdfsByBook(Long bookId);
 
     public boolean existsPdf(Long id);
 

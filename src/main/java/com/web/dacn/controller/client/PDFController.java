@@ -28,12 +28,11 @@ public class PDFController {
         if(bookDTO == null)
             return new ModelAndView("404");
 
-        List<AudioDTO> audioDTOs = pdfService.findAudiosByBook(bookDTO.getId());
+        List<AudioDTO> audioDTOs = pdfService.findPdfsByBook(bookDTO.getId());
 
         if(audioDTOs == null || audioDTOs.size()<1) {
             return new ModelAndView("404");
         }
-
         AudioDTO audioSelected = audioDTOs.get(0);
         audioDTOs.remove(0);
 

@@ -62,7 +62,7 @@ public class PDFServiceImpl implements PDFService {
     }
 
     @Override
-    public List<AudioDTO> findAudiosByBook(Long bookId) {
+    public List<AudioDTO> findPdfsByBook(Long bookId) {
         List<Audio> audios = audioRepository.findByBookIdOrderByPriorityAsc (bookId);
         List<AudioDTO> results= new ArrayList<>();
         if(audios!= null && audios.size()>0) {
