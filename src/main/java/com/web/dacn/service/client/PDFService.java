@@ -1,11 +1,17 @@
 package com.web.dacn.service.client;
 
+import com.web.dacn.dto.book.AudioDTO;
 import com.web.dacn.dto.book.BookDTO;
 import com.web.dacn.dto.book.OnlineDTO;
 
+import java.util.List;
+
 public interface PDFService {
-    BookDTO loadBook(String slug);
-    OnlineDTO loadChapter(long bookId, int chapter);
-    boolean existsPdfRead(long bookId);
-    boolean existsAudio(long bookId);
+    public BookDTO findBookBySlug(String slug);
+
+    public List<AudioDTO> findAudiosByBook(Long bookId);
+
+    public boolean existsPdf(Long id);
+
+    public boolean existsEbook(Long id);
 }

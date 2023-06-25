@@ -1,9 +1,11 @@
 package com.web.dacn.service.client.impl;
 
+import com.web.dacn.dto.book.AudioDTO;
 import com.web.dacn.dto.book.BookCategoryDTO;
 import com.web.dacn.dto.book.BookDTO;
 import com.web.dacn.dto.book.OnlineDTO;
 import com.web.dacn.dto.user.AuthorDTO;
+import com.web.dacn.entity.book.Audio;
 import com.web.dacn.entity.book.Book;
 import com.web.dacn.entity.book.Online;
 import com.web.dacn.repository.AudioRepository;
@@ -16,10 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PDFServiceImpl implements PDFService {
@@ -27,82 +26,65 @@ public class PDFServiceImpl implements PDFService {
     private BookRepository bookRepository;
 
     @Autowired
-    private OnlineRepository onlineRepository;
+    private AudioRepository audioRepository;
 
     @Autowired
     private PdfRepository pdfRepository;
 
     @Autowired
-    private AudioRepository audioRepository;
+    private OnlineRepository onlineRepository;
 
     @Override
-    public BookDTO loadBook(String slug) throws RuntimeException {
-        BookDTO dto = new BookDTO();
+    public BookDTO findBookBySlug(String slug) {
         Optional<Book> optional = bookRepository.findOneBySlug(slug);
-        Book book = optional.get();
         if(optional.isPresent()) {
-            try {
-                BeanUtils.copyProperties(optional.get(), dto);
-                book.getAuthors().stream().forEach(author -> {
+            BookDTO dto = new BookDTO();
+            Book book = optional.get();
+
+            dto.setId(book.getId());
+            dto.setName(book.getName());
+            dto.setSlug(book.getSlug());
+            dto.setThumbnail(book.getThumbnail());
+            dto.setDescription(book.getDescription());
+
+            if(book.getAuthors()!= null && book.getAuthors().size()>0) {
+                book.getAuthors().stream().forEach(author->{
                     AuthorDTO authorDTO = new AuthorDTO();
-                    BeanUtils.copyProperties(author, authorDTO);
+                    authorDTO.setId(author.getId());
+                    authorDTO.setSlug(author.getSlug());
+                    authorDTO.setFullname(author.getFullname());
                     dto.getAuthors().add(authorDTO);
                 });
-
-                book.getOnlines().stream().forEach(online -> {
-                    OnlineDTO onlineDTO = new OnlineDTO();
-                    BeanUtils.copyProperties(online, onlineDTO);
-                    onlineDTO.setContent(null);
-                    dto.getOnlines().add(onlineDTO);
-                    Collections.sort(dto.getOnlines(), new Comparator<OnlineDTO>() {
-                        @Override
-                        public int compare(OnlineDTO o1, OnlineDTO o2) {
-                            return o1.getPriority() - o2.getPriority();
-                        }
-                    });
-                });
-
-                book.getCategories().stream().forEach(category -> {
-                    BookCategoryDTO categoryDTO = new BookCategoryDTO();
-                    BeanUtils.copyProperties(category, categoryDTO);
-                    dto.getCategories().add(categoryDTO);
-                });
-
-                return dto;
-
-            } catch (Exception e) {
-                throw new RuntimeException(e.getMessage());
             }
-        } else {
-            return null;
+            return dto;
         }
-
+        return null;
     }
 
-
     @Override
-    public OnlineDTO loadChapter(long bookId, int chapter) {
-        List<Online> onlines = onlineRepository.findByBookIdOrderByPriorityAsc(bookId, PageRequest.of(chapter - 1, 1));
-        OnlineDTO onlineDTO = new OnlineDTO();
-        if(onlines.size() > 0) {
-            BeanUtils.copyProperties(onlines.get(0), onlineDTO);
-            return onlineDTO;
-        } else {
-            return null;
+    public List<AudioDTO> findAudiosByBook(Long bookId) {
+        List<Audio> audios = audioRepository.findByBookIdOrderByPriorityAsc (bookId);
+        List<AudioDTO> results= new ArrayList<>();
+        if(audios!= null && audios.size()>0) {
+            audios.stream().forEach(audio->{
+                AudioDTO dto = new AudioDTO();
+                dto.setId(audio.getId());
+                dto.setPriority(audio.getPriority());
+                dto.setName(audio.getName());
+                dto.setUrl(audio.getUrl());
+                results.add(dto);
+            });
         }
+        return results;
     }
 
-
-
     @Override
-    public boolean existsPdfRead(long bookId) {
+    public boolean existsPdf(Long bookId) {
         return pdfRepository.existsByBookId(bookId);
     }
 
-
-
     @Override
-    public boolean existsAudio(long bookId) {
-        return audioRepository.existsByBookId(bookId);
+    public boolean existsEbook(Long bookId) {
+        return onlineRepository.existsByBookId(bookId);
     }
 }
