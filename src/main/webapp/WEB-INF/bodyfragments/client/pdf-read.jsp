@@ -31,8 +31,9 @@
 
 			<iframe
 				src="https://drive.google.com/file/d/1iboU_WRL68hO1ALn04lTfkHn6io6lHay/preview"
-<%--					src=${pdfSelected.url}--%>
 				width="640" height="480" allow="autoplay"></iframe>
+
+			<a href="http://âPDFfiles/interfaces.pdfâ">https://drive.google.com/file/d/1iboU_WRL68hO1ALn04lTfkHn6io6lHay/preview</a>
 		</div>
 		<div class="content-share">
 			<div class="content-share-icon">
