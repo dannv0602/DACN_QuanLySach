@@ -17,15 +17,25 @@
 <link rel="stylesheet"
 	href="/vendor/fontawesome-free-6.1.1-web/css/all.min.css">
 <title><tiles:getAsString name="title" /></title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+	input {
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		padding: 4px;
+	}
 
-
+	.main-content {
+		flex: 1;
+		padding: 10px 20px 0 20px;
+	}
+</style>
 <title>Book Management</title>
 </head>
 <body>
 	<div>
 		<tiles:insertAttribute name="header" />
-
-		<div class="container">
+		<div class="mt-20 flex w-full main-body">
 			<tiles:insertAttribute name="sidebar" />
 			<tiles:insertAttribute name="body" />
 		</div>
