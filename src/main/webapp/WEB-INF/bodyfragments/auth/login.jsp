@@ -9,7 +9,7 @@
                         href="#" class='social'><i class="fab fa-google-plus-g"></i></a> <a
                         href="#" class='social'><i class="fab fa-linkedin-in"></i></a>
                 </div>
-                <span>${error}</span>
+                <span class="error">${error}</span>
 
                 <form:input  path="username"  placeholder="Username" />
                 <form:errors path="username" cssClass="error"/>

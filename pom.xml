@@ -15,8 +15,7 @@
 	<name>dacn</name>
 	<description>Java Spring MVC, Mysql, JSP</description>
 	<properties>
-<!--		<java.version>1.8</java.version>-->
-		<java.version>19</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
