@@ -101,11 +101,17 @@
 	<definition name="auth.base.definition"
 		template="/WEB-INF/layouts/auth.jsp">
 	</definition>
-	
-	<definition name="authPage"
-		extends="auth.base.definition">
+
+	<definition name="loginPage"
+				extends="auth.base.definition">
 		<put-attribute name="body"
-			value="/WEB-INF/bodyfragments/auth/auth.jsp" />
+					   value="/WEB-INF/bodyfragments/auth/login.jsp" />
+	</definition>
+
+	<definition name="registerPage"
+				extends="auth.base.definition">
+		<put-attribute name="body"
+					   value="/WEB-INF/bodyfragments/auth/register.jsp" />
 	</definition>
 	
 	

@@ -47,24 +47,29 @@ public class AuthController {
 
 	@GetMapping("login")
 	public ModelAndView login(ModelMap model) {
+		UserLoginDto userLogin = new UserLoginDto();
+		model.addAttribute("userLogin", userLogin);
+		return new ModelAndView("loginPage", model);
+	}
+
+	@GetMapping("register")
+	public ModelAndView register(ModelMap model) {
 		UserDto user = new UserDto();
 		model.addAttribute("user", user);
-		return new ModelAndView("authPage", model);
+		return new ModelAndView("registerPage", model);
 	}
 
 	@PostMapping("login")
-	public ModelAndView login(ModelMap model, @Valid @ModelAttribute("user") UserLoginDto userLoginDto,
-			BindingResult result) {
-//		if (result.hasErrors()) {
-//			return new ModelAndView("authPage");
-//		}
+	public ModelAndView login(ModelMap model, @Valid @ModelAttribute("userLogin") UserLoginDto userLoginDto,
+							  BindingResult result) {
+		if (result.hasErrors()) {
+			return new ModelAndView("loginPage");
+		}
 		User user = userService.login(userLoginDto.getUsername(), userLoginDto.getPassword());
 		if (user == null) {
-			model.addAttribute("openLogin", true);
-			model.addAttribute("user", new UserDto());
 			model.addAttribute("userLogin", userLoginDto);
-			model.addAttribute("error", "Invalid username or email");
-			return new ModelAndView("authPage", model);
+			model.addAttribute("error", "Invalid username or password");
+			return new ModelAndView("loginPage", model);
 		}
 		session.setAttribute("user", user);
 		for(Role role : user.getRoles()) {
@@ -73,28 +78,21 @@ public class AuthController {
 				return new ModelAndView("redirect:/admin/books");
 			}
 		}
-		
-		
-//		Object redirectUri= session.getAttribute("redirect-uri");
-//		if(redirectUri!=null) {
-//			session.removeAttribute("redirect-uri");
-//			return new ModelAndView("redirect:"+redirectUri);
-//		}
 		return new ModelAndView("redirect:/");
 	}
 
 	@PostMapping("signup")
 	public ModelAndView signup(ModelMap model, @Valid @ModelAttribute("user") UserDto userDto, BindingResult result) {
 		if (result.hasErrors()) {
-			return new ModelAndView("authPage");
+			return new ModelAndView("registerPage");
 		}
 		if(userService.findByEmail(userDto.getEmail().toLowerCase()).isPresent()) {
 			result.addError(new FieldError("email", "email", "Email already exists!"));
-			return new ModelAndView("authPage");
+			return new ModelAndView("registerPage");
 		}
 		if(userService.findByUsernameIgnoreCase(userDto.getUsername()).isPresent()) {
 			result.addError(new FieldError("username", "username", "Username already exists!"));
-			return new ModelAndView("authPage");
+			return new ModelAndView("registerPage");
 		}
 		Optional<Role> optionalRole = roleService.findByNameIgnoreCase("client");
 		List<Role> listRoles = new ArrayList<>();
